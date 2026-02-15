@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ICC T20 World Cup 2026 Live</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Watch ICC T20 World Cup 2026 live matches and scores">
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  color: #fff;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+.header {
+  background: linear-gradient(to right, #e10600, #b30500);
+  padding: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(225, 6, 0, 0.3);
+  position: relative;
+  z-index: 10;
+}
+
+.header::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(to right, #ffcc00, #ff9900);
+}
+
+.live-box {
+  display: none;
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.match-container {
+  background: rgba(30, 30, 30, 0.9);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(225, 6, 0, 0.3);
+}
+
+h2 {
+  color: #ffcc00;
+  margin-top: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.stream-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  margin: 20px 0;
+  background: #000;
+}
+
+.stream-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.score-container {
+  background: rgba(20, 20, 20, 0.9);
+  border-radius: 12px;
+  padding: 15px;
+  margin: 25px 0;
+  border-left: 5px solid #25d366;
+}
+
+.match-info {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 20px 0;
+  padding: 15px;
+  background: rgba(40, 40, 40, 0.7);
+  border-radius: 10px;
+}
+
+.info-item {
+  margin: 10px;
+  padding: 10px 20px;
+  background: rgba(60, 60, 60, 0.8);
+  border-radius: 8px;
+  min-width: 200px;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  animation: popupFade 0.5s ease;
+}
+
+@keyframes popupFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.popup-content {
+  background: linear-gradient(145deg, #1a1a1a, #111);
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+  border: 2px solid #e10600;
+  position: relative;
+}
+
+.popup-content h2 {
+  color: #25d366;
+  margin-top: 0;
+  font-size: 26px;
+}
+
+.popup-content p {
+  color: #ddd;
+  line-height: 1.6;
+  margin: 15px 0;
+}
+
+.join-btn {
+  display: block;
+  background: linear-gradient(to right, #25d366, #1da851);
+  color: #000;
+  padding: 16px;
+  margin: 20px 0;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 30px;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+}
+
+.join-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(37, 211, 102, 0.5);
+}
+
+.unlock-btn {
+  background: linear-gradient(to right, #e10600, #c10500);
+  border: none;
+  padding: 16px;
+  width: 100%;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  box-shadow: 0 4px 10px rgba(225, 6, 0, 0.3);
+}
+
+.unlock-btn:hover {
+  background: linear-gradient(to right, #ff1a00, #e10600);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(225, 6, 0, 0.5);
+}
+
+.countdown {
+  font-size: 14px;
+  color: #ffcc00;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.disclaimer {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 20px;
+  padding: 10px;
+  border-top: 1px solid #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .header {
+    font-size: 20px;
+    padding: 15px;
+  }
+  
+  .match-info {
+    flex-direction: column;
+  }
+  
+  .info-item {
+    min-width: auto;
+    width: 100%;
+    margin: 5px 0;
+  }
+  
+  .live-box {
+    padding: 10px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">🏏 ICC MEN'S T20 WORLD CUP 2026 LIVE</div>
+
+<!-- FORCE JOIN POPUP -->
+<div class="popup" id="joinPopup">
+  <div class="popup-content">
+    <h2>⚠ Join WhatsApp Channel</h2>
+    <p>To watch the live match, you must join our WhatsApp channel for updates and streaming links.</p>
+    <p><strong>Instructions:</strong></p>
+    <ol style="text-align: left; color: #ccc;">
+      <li>Click the "Join WhatsApp Channel" button below</li>
+      <li>Join the channel in WhatsApp</li>
+      <li>Return here and click "I Joined"</li>
+    </ol>
+    
+    <!-- 🔴 REPLACE YOUR WHATSAPP LINK BELOW -->
+    <a class="join-btn" href="https://whatsapp.com/channel/0029VavIryn4dTnEExrbfO0c" target="_blank" id="whatsappLink">
+      👉 Join WhatsApp Channel
+    </a>
+    
+    <p class="countdown">Stream will unlock after joining</p>
+    
+    <button class="unlock-btn" onclick="unlockLive()">✅ I Have Joined</button>
+    
+    <p class="disclaimer">By joining, you agree to receive match updates. You can leave the channel anytime.</p>
+  </div>
+</div>
+
+<!-- LIVE CONTENT -->
+<div class="live-box" id="liveContent">
+  <div class="match-container">
+    <h2>📺 Live Match Streaming</h2>
+    
+    <div class="match-info">
+      <div class="info-item">
+        <strong>🏆 Tournament:</strong> ICC T20 World Cup 2026
+      </div>
+      <div class="info-item">
+        <strong>📅 Match Date:</strong> To Be Announced
+      </div>
+      <div class="info-item">
+        <strong>📍 Venue:</strong> Various Locations
+      </div>
+    </div>
+    
+    <div class="stream-container">
+      <!-- Updated streaming iframe with fallback message -->
+      <iframe 
+        src="https://cdn2aws.tamashaweb.com/out/v1/bbe6ba6d0d1c47fbb8042a49b64db630/index_4.m3u8"
+        allowfullscreen
+        allow="autoplay; encrypted-media">
+      </iframe>
+    </div>
+    
+    <p style="color: #aaa; font-size: 14px;">If stream doesn't load, check the WhatsApp channel for alternative links</p>
+  </div>
+  
+  <div class="score-container">
+    <h2>📊 Live Scorecard</h2>
+    
+    <!-- Scorecard iframe with better compatibility -->
+    <div style="width:100%; height:300px; background:#111; border-radius:10px; display:flex; align-items:center; justify-content:center; margin:20px 0;">
+      <div id="scorecardPlaceholder">
+        <p style="color:#ffcc00; font-size:18px;">Live scores will appear here</p>
+        <p style="color:#aaa;">Scorecard updates during matches</p>
+        <div style="margin:20px; padding:15px; background:#222; border-radius:8px;">
+          <p><strong>Next Match:</strong> T20 World Cup 2026 - Schedule to be announced</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="match-info">
+      <div class="info-item">
+        <strong>Current Match:</strong> Waiting for tournament...
+      </div>
+      <div class="info-item">
+        <strong>Status:</strong> Tournament starts in 2026
+      </div>
+    </div>
+  </div>
+  
+  <div class="disclaimer">
+    <p>This is an unofficial fan page. All rights belong to ICC and official broadcasters.</p>
+    <p>Stream availability depends on official sources and geographical restrictions may apply.</p>
+  </div>
+</div>
+
+<script>
+// Show the popup immediately when page loads
+window.addEventListener('load', function() {
+  document.getElementById("joinPopup").style.display = "flex";
+  
+  // Check if user has already joined (using localStorage)
+  if(localStorage.getItem('hasJoined') === 'true') {
+    unlockLive();
+  }
+});
+
+function unlockLive() {
+  // Hide the popup with animation
+  const popup = document.getElementById("joinPopup");
+  popup.style.animation = "popupFade 0.5s ease reverse";
+  setTimeout(() => {
+    popup.style.display = "none";
+  }, 400);
+  
+  // Show the live content with animation
+  document.getElementById("liveContent").style.display = "block";
+  
+  // Save to localStorage so user doesn't see popup again
+  localStorage.setItem('hasJoined', 'true');
+  
+  // Optional: Notify user
+  alert("Thank you for joining! Enjoy the match.");
+}
+
+// Optional: Add a timer to refresh the page for score updates
+setInterval(function() {
+  // This would typically fetch new data from an API
+  console.log("Page refreshed for updates");
+}, 300000); // Refresh every 5 minutes
+
+// Check if the WhatsApp link is still a placeholder
+document.getElementById("whatsappLink").addEventListener("click", function(e) {
+  if(this.href.includes("YOUR_CHANNEL_LINK")) {
+    e.preventDefault();
+    alert("Please replace the WhatsApp link in the code with your actual channel link!");
+  }
+});
+</script>
+
+</body>
+</html>
